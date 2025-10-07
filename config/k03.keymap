@@ -10,14 +10,14 @@
       compatible = "zmk,behavior-sensor-rotate";
       label = "ENC_VER";
       #sensor-binding-cells = <0>;
-      bindings = <&kp MS_WH_UP>, <&kp MS_WH_DOWN>;
+      bindings = <&kp C_VOL_UP>, <&kp C_VOL_DN>;
     };
 
     enc_hor: enc_hor {
       compatible = "zmk,behavior-sensor-rotate";
       label = "ENC_HOR";
       #sensor-binding-cells = <0>;
-      bindings = <&kp MS_WH_RIGHT>, <&kp MS_WH_LEFT>;
+      bindings = <&kp C_BRIGHTNESS_INC>, <&kp C_BRIGHTNESS_DEC>;
     };
 
     esc_grv: esc_grv {
