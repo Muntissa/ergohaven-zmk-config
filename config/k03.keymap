@@ -6,6 +6,7 @@
 
 / {
   behaviors {
+    /* Универсальный hold-tap-алияс */
     ht: hold_tap {
       compatible = "zmk,behavior-hold-tap";
       #binding-cells = <2>;
@@ -14,39 +15,55 @@
       quick-tap-ms = <150>;
     };
 
-    enc_ver: enc_ver {
+    /* Энкодеры: Base */
+    enc_tabs: enc_tabs {
       compatible = "zmk,behavior-sensor-rotate";
-      label = "ENC_VER";                 /* warning о deprecated label можно игнорировать */
+      label = "ENC_TABS";
       #sensor-binding-cells = <0>;
-      bindings = <&kp C_VOL_UP>, <&kp C_VOL_DN>;  /* временно: громкость */
-      /* вернёшь прокрутку, когда MS_WH_* будут доступны */
+      /* влево — Ctrl+Shift+Tab, вправо — Ctrl+Tab */
+      bindings = <&kp LC(LS(TAB))>, <&kp LC(TAB)>;
     };
 
-    enc_hor: enc_hor {
+    enc_undo: enc_undo {
       compatible = "zmk,behavior-sensor-rotate";
-      label = "ENC_HOR";
+      label = "ENC_UNDO";
       #sensor-binding-cells = <0>;
-      bindings = <&kp C_BRIGHTNESS_INC>, <&kp C_BRIGHTNESS_DEC>; /* временно: яркость */
+      /* влево — Undo (Ctrl+Z), вправо — Redo (Ctrl+Y) */
+      bindings = <&kp LC(Z)>, <&kp LC(Y)>;
+    };
+
+    /* Энкодеры: Adjust — громкость */
+    enc_vol: enc_vol {
+      compatible = "zmk,behavior-sensor-rotate";
+      label = "ENC_VOL";
+      #sensor-binding-cells = <0>;
+      /* влево — громкость вниз, вправо — вверх */
+      bindings = <&kp C_VOL_DN>, <&kp C_VOL_UP>;
     };
   };
 
   keymap {
     compatible = "zmk,keymap";
 
+    /* ---------- Base ---------- */
     base {
       bindings = <
         &ht &kp GRAVE &kp ESC   &kp N1    &kp N2    &kp N3    &kp N4    &kp N5                          &kp N6   &kp N7   &kp N8   &kp N9   &kp N0    &kp BSPC
-        &kp ESC                   &kp Q     &kp W     &kp E     &kp R     &kp T                           &kp Y    &kp U    &kp I    &kp O    &kp P     &kp BSLH
-        &kp TAB                   &mt LGUI A  &mt LALT S  &mt LCTRL D  &mt LSHFT F   &kp G                &kp H    &mt RSHFT J  &mt RCTRL K  &mt RALT L  &mt RGUI SEMI  &kp SQT
-        &mt LSHFT TAB             &kp Z     &kp X     &kp C     &kp V     &kp B      &trans      &trans   &kp N    &kp M    &kp COMMA &kp DOT  &kp FSLH  &kp RSHFT
+        &kp ESC                   &kp Q     &kp W     &kp E     &kp R     &kp T                           &kp Y    &kp U    &kp I    &kp O    &kp P     &kp RBKT
+        &kp TAB                   &mt LGUI A  &mt LALT S  &mt LCTRL D  &mt LSHFT F   &kp G                &kp H    &mt RSHFT J  &mt RCTRL K  &mt RALT L  &kp LBKT  &kp DEL
+        &mt LSHFT TAB             &kp Z     &trans   &kp C     &kp V     &kp B      &trans      &trans   &kp N    &kp M    &kp COMMA &kp DOT  &kp X     &kp RSHFT
         &kp LGUI                  &kp LALT  &kp LCTRL &mo 1     &kp SPACE &kp ENTER  &mo 2       &kp RCTRL &kp RALT &kp RGUI
       >;
 
       display-name = "Base";
+      /* Левый энкодер — вкладки, правый — undo/redo */
       sensor-bindings =
-        <&enc_ver>, <&enc_hor>, <&enc_ver>, <&enc_hor>, <&enc_ver>, <&enc_hor>;
+        <&enc_tabs>, <&enc_undo>,
+        <&enc_tabs>, <&enc_undo>,
+        <&enc_tabs>, <&enc_undo>;
     };
 
+    /* ---------- Navigation ---------- */
     nav {
       bindings = <
         &kp F1  &kp F2  &kp F3        &kp F4    &kp F5         &kp F6                     &kp F7           &kp F8  &kp F9  &kp F10  &kp F11  &kp F12
@@ -57,8 +74,14 @@
       >;
 
       display-name = "Navigation";
+      /* Оставим поведение энкодеров как на Base (можно заменить по желанию) */
+      sensor-bindings =
+        <&enc_tabs>, <&enc_undo>,
+        <&enc_tabs>, <&enc_undo>,
+        <&enc_tabs>, <&enc_undo>;
     };
 
+    /* ---------- Symbols ---------- */
     sym {
       bindings = <
         &trans  &trans    &kp AT    &kp DLLR   &kp HASH  &trans                       &trans     &trans    &kp CARET  &trans    &trans    &trans
@@ -69,8 +92,13 @@
       >;
 
       display-name = "Symbols";
+      sensor-bindings =
+        <&enc_tabs>, <&enc_undo>,
+        <&enc_tabs>, <&enc_undo>,
+        <&enc_tabs>, <&enc_undo>;
     };
 
+    /* ---------- Adjust ---------- */
     adj {
       bindings = <
         &bootloader  &trans  &trans  &trans  &trans  &trans                    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2      &bt BT_SEL 3  &bt BT_SEL 4  &bt BT_CLR_ALL
@@ -81,6 +109,11 @@
       >;
 
       display-name = "Adjust";
+      /* На Adjust оба энкодера — громкость */
+      sensor-bindings =
+        <&enc_vol>, <&enc_vol>,
+        <&enc_vol>, <&enc_vol>,
+        <&enc_vol>, <&enc_vol>;
     };
   };
 };
