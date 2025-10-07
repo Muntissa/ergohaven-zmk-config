@@ -96,8 +96,6 @@
       quick-tap-ms = <150>;
       bindings = <&kp RBRC>, <&kp L>;      // } при удержании, L при тапе
     };
-  };
-
     keymap {
         compatible = "zmk,keymap";
 
