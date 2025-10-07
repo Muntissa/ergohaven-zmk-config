@@ -5,7 +5,6 @@
 #include <dt-bindings/zmk/outputs.h>
 
 / {
-/ {
   behaviors {
     ht: hold_tap {
       compatible = "zmk,behavior-hold-tap";
