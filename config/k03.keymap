@@ -6,37 +6,38 @@
 
 / {
   behaviors {
-      enc_ver: enc_ver {
-        compatible = "zmk,behavior-sensor-rotate";
-        label = "ENC_VER";
-        #sensor-binding-cells = <0>;
-        bindings = <&kp C_VOL_UP>, <&kp C_VOL_DN>;
-      };
-  
-      enc_hor: enc_hor {
-        compatible = "zmk,behavior-sensor-rotate";
-        label = "ENC_HOR";
-        #sensor-binding-cells = <0>;
-        bindings = <&kp C_BRIGHTNESS_INC>, <&kp C_BRIGHTNESS_DEC>;
-      };
-  
-      esc_grv: esc_grv {
-        compatible = "zmk,behavior-hold-tap";
-        label = "ESC_GRV";
-        flavor = "tap-preferred";
-        tapping-term-ms = <180>;
-        quick-tap-ms = <150>;
-        bindings = <&kp GRAVE &kp ESC>;
-      };
-  
-      sft_tab: sft_tab {
-        compatible = "zmk,behavior-hold-tap";
-        label = "SFT_TAB";
-        flavor = "tap-preferred";
-        tapping-term-ms = <200>;
-        quick-tap-ms = <150>;
-        bindings = <&kp LSHFT &kp TAB>;
-      };
+    enc_ver: enc_ver {
+      compatible = "zmk,behavior-sensor-rotate";
+      label = "ENC_VER";
+      #sensor-binding-cells = <0>;
+      bindings = <&kp C_VOL_UP>, <&kp C_VOL_DN>;
+    };
+
+    enc_hor: enc_hor {
+      compatible = "zmk,behavior-sensor-rotate";
+      label = "ENC_HOR";
+      #sensor-binding-cells = <0>;
+      bindings = <&kp C_BRIGHTNESS_INC>, <&kp C_BRIGHTNESS_DEC>;
+    };
+
+    /* Esc (tap) / ` (hold) */
+    esc_grv: esc_grv {
+      compatible = "zmk,behavior-hold-tap";
+      label = "ESC_GRV";
+      flavor = "tap-preferred";
+      tapping-term-ms = <180>;
+      quick-tap-ms = <150>;
+      bindings = <&kp GRAVE &kp ESC>;
+    };
+
+    /* Tab (tap) / Shift (hold) */
+    sft_tab: sft_tab {
+      compatible = "zmk,behavior-hold-tap";
+      label = "SFT_TAB";
+      flavor = "tap-preferred";
+      tapping-term-ms = <200>;
+      quick-tap-ms = <150>;
+      bindings = <&kp LSHFT &kp TAB>;
     };
   };
 
