@@ -6,38 +6,35 @@
 
 / {
   behaviors {
-    /* Универсальный hold-tap-алияс */
-    ht: hold_tap {
+    /* Esc (tap) / ` (hold) — явный hold-tap с обязательным bindings */
+    esc_grv: esc_grv {
       compatible = "zmk,behavior-hold-tap";
-      #binding-cells = <2>;
       flavor = "tap-preferred";
       tapping-term-ms = <180>;
       quick-tap-ms = <150>;
+      /* Порядок: сначала HOLD, потом TAP */
+      bindings = <&kp GRAVE &kp ESC>;
     };
 
-    /* Энкодеры: Base */
+    /* Энкодеры: Base — переключение вкладок и undo/redo */
     enc_tabs: enc_tabs {
       compatible = "zmk,behavior-sensor-rotate";
-      label = "ENC_TABS";
       #sensor-binding-cells = <0>;
-      /* влево — Ctrl+Shift+Tab, вправо — Ctrl+Tab */
+      /* влево: Ctrl+Shift+Tab, вправо: Ctrl+Tab */
       bindings = <&kp LC(LS(TAB))>, <&kp LC(TAB)>;
     };
 
     enc_undo: enc_undo {
       compatible = "zmk,behavior-sensor-rotate";
-      label = "ENC_UNDO";
       #sensor-binding-cells = <0>;
-      /* влево — Undo (Ctrl+Z), вправо — Redo (Ctrl+Y) */
+      /* влево: Undo (Ctrl+Z), вправо: Redo (Ctrl+Y) */
       bindings = <&kp LC(Z)>, <&kp LC(Y)>;
     };
 
-    /* Энкодеры: Adjust — громкость */
+    /* Энкодеры: Adjust — громкость на обоих */
     enc_vol: enc_vol {
       compatible = "zmk,behavior-sensor-rotate";
-      label = "ENC_VOL";
       #sensor-binding-cells = <0>;
-      /* влево — громкость вниз, вправо — вверх */
       bindings = <&kp C_VOL_DN>, <&kp C_VOL_UP>;
     };
   };
@@ -48,11 +45,11 @@
     /* ---------- Base ---------- */
     base {
       bindings = <
-        &ht &kp GRAVE &kp ESC   &kp N1    &kp N2    &kp N3    &kp N4    &kp N5                          &kp N6   &kp N7   &kp N8   &kp N9   &kp N0    &kp BSPC
-        &kp ESC                   &kp Q     &kp W     &kp E     &kp R     &kp T                           &kp Y    &kp U    &kp I    &kp O    &kp P     &kp RBKT
-        &kp TAB                   &mt LGUI A  &mt LALT S  &mt LCTRL D  &mt LSHFT F   &kp G                &kp H    &mt RSHFT J  &mt RCTRL K  &mt RALT L  &kp LBKT  &kp DEL
-        &mt LSHFT TAB             &kp Z     &trans   &kp C     &kp V     &kp B      &trans      &trans   &kp N    &kp M    &kp COMMA &kp DOT  &kp X     &kp RSHFT
-        &kp LGUI                  &kp LALT  &kp LCTRL &mo 1     &kp SPACE &kp ENTER  &mo 2       &kp RCTRL &kp RALT &kp RGUI
+        &esc_grv  &kp N1    &kp N2    &kp N3    &kp N4    &kp N5                           &kp N6   &kp N7   &kp N8   &kp N9   &kp N0    &kp BSPC
+        &kp ESC   &kp Q     &kp W     &kp E     &kp R     &kp T                            &kp Y    &kp U    &kp I    &kp O    &kp P     &kp RBKT
+        &kp TAB   &mt LGUI A  &mt LALT S  &mt LCTRL D  &mt LSHFT F   &kp G                 &kp H    &mt RSHFT J  &mt RCTRL K  &mt RALT L  &kp LBKT  &kp DEL
+        &mt LSHFT TAB  &kp Z  &trans  &kp C     &kp V     &kp B      &trans      &trans    &kp N    &kp M    &kp COMMA &kp DOT  &kp X     &kp RSHFT
+        &kp LGUI  &kp LALT  &kp LCTRL  &mo 1     &kp SPACE  &kp ENTER  &mo 2      &kp RCTRL  &kp RALT  &kp RGUI
       >;
 
       display-name = "Base";
@@ -74,7 +71,6 @@
       >;
 
       display-name = "Navigation";
-      /* Оставим поведение энкодеров как на Base (можно заменить по желанию) */
       sensor-bindings =
         <&enc_tabs>, <&enc_undo>,
         <&enc_tabs>, <&enc_undo>,
