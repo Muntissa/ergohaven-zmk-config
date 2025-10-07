@@ -5,13 +5,22 @@
 #include <dt-bindings/zmk/outputs.h>
 
 / {
+/ {
   behaviors {
+    ht: hold_tap {
+      compatible = "zmk,behavior-hold-tap";
+      #binding-cells = <2>;
+      flavor = "tap-preferred";
+      tapping-term-ms = <180>;
+      quick-tap-ms = <150>;
+    };
+
     enc_ver: enc_ver {
       compatible = "zmk,behavior-sensor-rotate";
-      label = "ENC_VER";
+      label = "ENC_VER";                 /* warning о deprecated label можно игнорировать */
       #sensor-binding-cells = <0>;
-      bindings = <&kp C_VOL_UP>, <&kp C_VOL_DN>; /* временно: громкость */
-      /* когда заработает прокрутка, можно: <&kp MS_WH_UP>, <&kp MS_WH_DOWN> */
+      bindings = <&kp C_VOL_UP>, <&kp C_VOL_DN>;  /* временно: громкость */
+      /* вернёшь прокрутку, когда MS_WH_* будут доступны */
     };
 
     enc_hor: enc_hor {
@@ -19,7 +28,6 @@
       label = "ENC_HOR";
       #sensor-binding-cells = <0>;
       bindings = <&kp C_BRIGHTNESS_INC>, <&kp C_BRIGHTNESS_DEC>; /* временно: яркость */
-      /* горизонтальная прокрутка позже: <&kp MS_WH_RIGHT>, <&kp MS_WH_LEFT> */
     };
   };
 
