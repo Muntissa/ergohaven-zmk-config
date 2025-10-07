@@ -38,7 +38,6 @@
       bindings = <&kp LSHFT &kp TAB>;      /* hold: Shift, tap: Tab */
     };
   };
-};
 
   keymap {
     compatible = "zmk,keymap";
