@@ -10,34 +10,16 @@
       compatible = "zmk,behavior-sensor-rotate";
       label = "ENC_VER";
       #sensor-binding-cells = <0>;
-      bindings = <&kp C_VOL_UP>, <&kp C_VOL_DN>;
+      bindings = <&kp C_VOL_UP>, <&kp C_VOL_DN>; /* временно: громкость */
+      /* когда заработает прокрутка, можно: <&kp MS_WH_UP>, <&kp MS_WH_DOWN> */
     };
 
     enc_hor: enc_hor {
       compatible = "zmk,behavior-sensor-rotate";
       label = "ENC_HOR";
       #sensor-binding-cells = <0>;
-      bindings = <&kp C_BRIGHTNESS_INC>, <&kp C_BRIGHTNESS_DEC>;
-    };
-
-    /* Esc (tap) / ` (hold) */
-    esc_grv: esc_grv {
-      compatible = "zmk,behavior-hold-tap";
-      label = "ESC_GRV";
-      flavor = "tap-preferred";
-      tapping-term-ms = <180>;
-      quick-tap-ms = <150>;
-      bindings = <&kp GRAVE &kp ESC>;
-    };
-
-    /* Tab (tap) / Shift (hold) */
-    sft_tab: sft_tab {
-      compatible = "zmk,behavior-hold-tap";
-      label = "SFT_TAB";
-      flavor = "tap-preferred";
-      tapping-term-ms = <200>;
-      quick-tap-ms = <150>;
-      bindings = <&kp LSHFT &kp TAB>;
+      bindings = <&kp C_BRIGHTNESS_INC>, <&kp C_BRIGHTNESS_DEC>; /* временно: яркость */
+      /* горизонтальная прокрутка позже: <&kp MS_WH_RIGHT>, <&kp MS_WH_LEFT> */
     };
   };
 
@@ -46,11 +28,11 @@
 
     base {
       bindings = <
-        &esc_grv   &kp N1    &kp N2    &kp N3    &kp N4    &kp N5                           &kp N6   &kp N7   &kp N8   &kp N9   &kp N0    &kp BSPC
-        &kp ESC    &kp Q     &kp W     &kp E     &kp R     &kp T                            &kp Y    &kp U    &kp I    &kp O    &kp P     &kp BSLH
-        &kp TAB    &mt LGUI A  &mt LALT S  &mt LCTRL D  &mt LSHFT F   &kp G                 &kp H    &mt RSHFT J  &mt RCTRL K  &mt RALT L  &mt RGUI SEMI  &kp SQT
-        &sft_tab   &kp Z     &kp X     &kp C     &kp V     &kp B      &trans      &trans    &kp N    &kp M    &kp COMMA &kp DOT  &kp FSLH  &kp RSHFT
-        &kp LGUI   &kp LALT  &kp LCTRL &mo 1     &kp SPACE &kp ENTER  &mo 2       &kp RCTRL &kp RALT &kp RGUI
+        &ht &kp GRAVE &kp ESC   &kp N1    &kp N2    &kp N3    &kp N4    &kp N5                          &kp N6   &kp N7   &kp N8   &kp N9   &kp N0    &kp BSPC
+        &kp ESC                   &kp Q     &kp W     &kp E     &kp R     &kp T                           &kp Y    &kp U    &kp I    &kp O    &kp P     &kp BSLH
+        &kp TAB                   &mt LGUI A  &mt LALT S  &mt LCTRL D  &mt LSHFT F   &kp G                &kp H    &mt RSHFT J  &mt RCTRL K  &mt RALT L  &mt RGUI SEMI  &kp SQT
+        &mt LSHFT TAB             &kp Z     &kp X     &kp C     &kp V     &kp B      &trans      &trans   &kp N    &kp M    &kp COMMA &kp DOT  &kp FSLH  &kp RSHFT
+        &kp LGUI                  &kp LALT  &kp LCTRL &mo 1     &kp SPACE &kp ENTER  &mo 2       &kp RCTRL &kp RALT &kp RGUI
       >;
 
       display-name = "Base";
