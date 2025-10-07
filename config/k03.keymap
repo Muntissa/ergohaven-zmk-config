@@ -10,17 +10,17 @@
       compatible = "zmk,behavior-sensor-rotate";
       label = "ENC_VER";
       #sensor-binding-cells = <0>;
-      bindings = <&kp MS_WH_UP>, <&kp MS_WH_DOWN>;   // Вверх/вниз колесо мыши
+      bindings = <&kp MS_WH_UP>, <&kp MS_WH_DOWN>; /* Вертикальный скролл */
     };
 
     enc_hor: enc_hor {
       compatible = "zmk,behavior-sensor-rotate";
       label = "ENC_HOR";
       #sensor-binding-cells = <0>;
-      bindings = <&kp MS_WH_RIGHT>, <&kp MS_WH_LEFT>; // Горизонтальный скролл
+      bindings = <&kp MS_WH_RIGHT>, <&kp MS_WH_LEFT>; /* Горизонтальный скролл */
     };
 
-    // Esc (tap) / ` (hold). Удержал чуть дольше — напечатается `
+    /* Esc (tap) / ` (hold) */
     esc_grv: esc_grv {
       compatible = "zmk,behavior-hold-tap";
       label = "ESC_GRV";
@@ -30,7 +30,7 @@
       bindings = <&kp GRAVE>, <&kp ESC>;
     };
 
-    // Tab (tap) / Shift (hold) — лечит путаницу Tab/Shift
+    /* Tab (tap) / Shift (hold) */
     sft_tab: sft_tab {
       compatible = "zmk,behavior-hold-tap";
       label = "SFT_TAB";
@@ -39,65 +39,10 @@
       quick-tap-ms = <150>;
       bindings = <&kp LSHFT>, <&kp TAB>;
     };
+  };
 
-    // Вариант B: "буква при тапе, символ при удержании" (скобки)
-    // ЛЕВАЯ РУКА
-    ht_d_lbkt: ht_d_lbkt {
-      compatible = "zmk,behavior-hold-tap";
-      label = "HT_D_LBKT";
-      flavor = "tap-preferred";
-      tapping-term-ms = <200>;
-      quick-tap-ms = <150>;
-      bindings = <&kp LBKT>, <&kp D>;      // [ при удержании, D при тапе
-    };
-
-    ht_f_lpar: ht_f_lpar {
-      compatible = "zmk,behavior-hold-tap";
-      label = "HT_F_LPAR";
-      flavor = "tap-preferred";
-      tapping-term-ms = <200>;
-      quick-tap-ms = <150>;
-      bindings = <&kp LPAR>, <&kp F>;      // ( при удержании, F при тапе
-    };
-
-    ht_s_lbrc: ht_s_lbrc {
-      compatible = "zmk,behavior-hold-tap";
-      label = "HT_S_LBRC";
-      flavor = "tap-preferred";
-      tapping-term-ms = <200>;
-      quick-tap-ms = <150>;
-      bindings = <&kp LBRC>, <&kp S>;      // { при удержании, S при тапе
-    };
-
-    // ПРАВАЯ РУКА
-    ht_k_rbkt: ht_k_rbkt {
-      compatible = "zmk,behavior-hold-tap";
-      label = "HT_K_RBKT";
-      flavor = "tap-preferred";
-      tapping-term-ms = <200>;
-      quick-tap-ms = <150>;
-      bindings = <&kp RBKT>, <&kp K>;      // ] при удержании, K при тапе
-    };
-
-    ht_j_rpar: ht_j_rpar {
-      compatible = "zmk,behavior-hold-tap";
-      label = "HT_J_RPAR";
-      flavor = "tap-preferred";
-      tapping-term-ms = <200>;
-      quick-tap-ms = <150>;
-      bindings = <&kp RPAR>, <&kp J>;      // ) при удержании, J при тапе
-    };
-
-    ht_l_rbrc: ht_l_rbrc {
-      compatible = "zmk,behavior-hold-tap";
-      label = "HT_L_RBRC";
-      flavor = "tap-preferred";
-      tapping-term-ms = <250>;
-      quick-tap-ms = <150>;
-      bindings = <&kp RBRC>, <&kp L>;      // } при удержании, L при тапе
-    };
-    keymap {
-        compatible = "zmk,keymap";
+  keymap {
+    compatible = "zmk,keymap";
 
     base {
       bindings = <
@@ -107,46 +52,46 @@
         &sft_tab   &kp Z     &kp X     &kp C     &kp V     &kp B      &trans      &trans    &kp N    &kp M    &kp COMMA &kp DOT  &kp FSLH  &kp RSHFT
         &kp LGUI   &kp LALT  &kp LCTRL &mo 1     &kp SPACE &kp ENTER  &mo 2       &kp RCTRL &kp RALT &kp RGUI
       >;
-    
+
       display-name = "Base";
       sensor-bindings =
         <&enc_ver>, <&enc_hor>, <&enc_ver>, <&enc_hor>, <&enc_ver>, <&enc_hor>;
     };
 
-        nav {
-            bindings = <
-&kp F1  &kp F2  &kp F3        &kp F4    &kp F5         &kp F6                     &kp F7           &kp F8  &kp F9  &kp F10  &kp F11  &kp F12
-&trans  &trans  &kp HOME      &kp UP    &kp END        &kp INS                    &kp PG_UP        &kp N7  &kp N8  &kp N9   &trans   &trans
-&trans  &trans  &kp LEFT      &kp DOWN  &kp RIGHT      &kp RET                    &kp PG_DN        &kp N4  &kp N5  &kp N6   &trans   &trans
-&trans  &trans  &kp LC(LEFT)  &kp CAPS  &kp LC(RIGHT)  &kp DEL  &trans    &trans  &kp PRINTSCREEN  &kp N1  &kp N2  &kp N3   &trans   &trans
-                &trans        &trans    &trans         &trans   &trans    &trans  &mo 3            &trans  &kp N0  &trans
-            >;
+    nav {
+      bindings = <
+        &kp F1  &kp F2  &kp F3        &kp F4    &kp F5         &kp F6                     &kp F7           &kp F8  &kp F9  &kp F10  &kp F11  &kp F12
+        &trans  &trans  &kp HOME      &kp UP    &kp END        &kp INS                    &kp PG_UP        &kp N7  &kp N8  &kp N9   &trans   &trans
+        &trans  &trans  &kp LEFT      &kp DOWN  &kp RIGHT      &kp RET                    &kp PG_DN        &kp N4  &kp N5  &kp N6   &trans   &trans
+        &trans  &trans  &kp LC(LEFT)  &kp CAPS  &kp LC(RIGHT)  &kp DEL  &trans    &trans  &kp PRINTSCREEN  &kp N1  &kp N2  &kp N3   &trans   &trans
+                   &trans        &trans    &trans         &trans   &trans    &trans  &mo 3            &trans  &kp N0  &trans
+      >;
 
-            display-name = "Navigation";
-        };
-
-        sym {
-            bindings = <
-&trans  &trans    &kp AT    &kp DLLR   &kp HASH  &trans                       &trans     &trans    &kp CARET  &trans    &trans    &trans
-&trans  &trans    &kp LT    &kp EQUAL  &kp GT    &kp GRAVE                    &trans     &kp LBKT  &kp UNDER  &kp RBKT  &trans    &trans
-&trans  &kp BSLH  &kp LPAR  &kp MINUS  &kp RPAR  &kp PLUS                     &kp PRCNT  &kp LBRC  &kp SEMI   &kp RBRC  &kp EXCL  &trans
-&trans  &trans    &kp STAR  &kp COLON  &kp FSLH  &trans     &trans    &trans  &trans     &kp PIPE  &kp TILDE  &kp AMPS  &trans    &trans
-                  &trans    &trans     &trans    &mo 3      &trans    &trans  &trans     &trans    &trans     &trans
-            >;
-
-            display-name = "Symbols";
-        };
-
-        adj {
-            bindings = <
-&bootloader  &trans  &trans  &trans  &trans  &trans                    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2      &bt BT_SEL 3  &bt BT_SEL 4  &bt BT_CLR_ALL
-&trans       &trans  &trans  &trans  &trans  &trans                    &trans        &trans        &trans            &trans        &trans        &studio_unlock
-&trans       &trans  &trans  &trans  &trans  &trans                    &out OUT_BLE  &kp C_VOL_DN  &kp K_MUTE        &kp C_VOL_UP  &trans        &trans
-&trans       &trans  &trans  &trans  &trans  &trans  &trans    &trans  &out OUT_USB  &kp K_PREV    &kp K_PLAY_PAUSE  &kp K_NEXT    &trans        &trans
-                     &trans  &trans  &trans  &trans  &trans    &trans  &trans        &trans        &trans            &trans
-            >;
-
-            display-name = "Adjust";
-        };
+      display-name = "Navigation";
     };
+
+    sym {
+      bindings = <
+        &trans  &trans    &kp AT    &kp DLLR   &kp HASH  &trans                       &trans     &trans    &kp CARET  &trans    &trans    &trans
+        &trans  &trans    &kp LT    &kp EQUAL  &kp GT    &kp GRAVE                    &trans     &kp LBKT  &kp UNDER  &kp RBKT  &trans    &trans
+        &trans  &kp BSLH  &kp LPAR  &kp MINUS  &kp RPAR  &kp PLUS                     &kp PRCNT  &kp LBRC  &kp SEMI   &kp RBRC  &kp EXCL  &trans
+        &trans  &trans    &kp STAR  &kp COLON  &kp FSLH  &trans     &trans    &trans  &trans     &kp PIPE  &kp TILDE  &kp AMPS  &trans    &trans
+                     &trans    &trans     &trans    &mo 3      &trans    &trans  &trans     &trans    &trans     &trans
+      >;
+
+      display-name = "Symbols";
+    };
+
+    adj {
+      bindings = <
+        &bootloader  &trans  &trans  &trans  &trans  &trans                    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2      &bt BT_SEL 3  &bt BT_SEL 4  &bt BT_CLR_ALL
+        &trans       &trans  &trans  &trans  &trans  &trans                    &trans        &trans        &trans            &trans        &trans        &studio_unlock
+        &trans       &trans  &trans  &trans  &trans  &trans                    &out OUT_BLE  &kp C_VOL_DN  &kp K_MUTE        &kp C_VOL_UP  &trans        &trans
+        &trans       &trans  &trans  &trans  &trans  &trans  &trans    &trans  &out OUT_USB  &kp K_PREV    &kp K_PLAY_PAUSE  &kp K_NEXT    &trans        &trans
+                          &trans  &trans  &trans  &trans  &trans    &trans  &trans        &trans        &trans            &trans
+      >;
+
+      display-name = "Adjust";
+    };
+  };
 };
