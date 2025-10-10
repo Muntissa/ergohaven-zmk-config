@@ -6,74 +6,64 @@
 
 / {
   behaviors {
-    /* -------------------- MACROS -------------------- */
+    /* ---------- Visual Studio / общие макросы ---------- */
     qa: qa {
       compatible = "zmk,behavior-macro";
-      label = "QA";
       #binding-cells = <0>;
-      bindings = <&kp LC(DOT)>; /* Ctrl+. Quick Actions */
+      bindings = <&kp LC(DOT)>; /* Quick Actions: Ctrl+. */
     };
 
     fmt_doc: fmt_doc {
       compatible = "zmk,behavior-macro";
-      label = "FMT_DOC";
       #binding-cells = <0>;
-      /* Ctrl+K, Ctrl+D */
+      /* Format Document: Ctrl+K, Ctrl+D */
       bindings = <&kp LC(K)>, <&kp LC(D)>;
     };
 
     build_sol: build_sol {
       compatible = "zmk,behavior-macro";
-      label = "BUILD";
       #binding-cells = <0>;
-      bindings = <&kp LC(LS(B))>; /* Ctrl+Shift+B */
+      bindings = <&kp LC(LS(B))>; /* Build Solution: Ctrl+Shift+B */
     };
 
     start_dbg: start_dbg {
       compatible = "zmk,behavior-macro";
-      label = "DBG_START";
       #binding-cells = <0>;
-      bindings = <&kp F5>;
+      bindings = <&kp F5>; /* Start Debugging */
     };
 
     start_wo_dbg: start_wo_dbg {
       compatible = "zmk,behavior-macro";
-      label = "RUN_NO_DBG";
       #binding-cells = <0>;
-      bindings = <&kp LC(F5)>; /* Ctrl+F5 */
+      bindings = <&kp LC(F5)>; /* Start Without Debugging */
     };
 
     stop_dbg: stop_dbg {
       compatible = "zmk,behavior-macro";
-      label = "DBG_STOP";
       #binding-cells = <0>;
-      bindings = <&kp LS(F5)>; /* Shift+F5 */
+      bindings = <&kp LS(F5)>; /* Stop Debugging */
     };
 
     step_over: step_over {
       compatible = "zmk,behavior-macro";
-      label = "STEP_OVER";
       #binding-cells = <0>;
       bindings = <&kp F10>;
     };
 
     step_into: step_into {
       compatible = "zmk,behavior-macro";
-      label = "STEP_INTO";
       #binding-cells = <0>;
       bindings = <&kp F11>;
     };
 
     step_out: step_out {
       compatible = "zmk,behavior-macro";
-      label = "STEP_OUT";
       #binding-cells = <0>;
-      bindings = <&kp LS(F11)>; /* Shift+F11 */
+      bindings = <&kp LS(F11)>;
     };
 
     comment_sel: comment_sel {
       compatible = "zmk,behavior-macro";
-      label = "COMMENT";
       #binding-cells = <0>;
       /* Ctrl+K, Ctrl+C */
       bindings = <&kp LC(K)>, <&kp LC(C)>;
@@ -81,7 +71,6 @@
 
     uncomment_sel: uncomment_sel {
       compatible = "zmk,behavior-macro";
-      label = "UNCOMMENT";
       #binding-cells = <0>;
       /* Ctrl+K, Ctrl+U */
       bindings = <&kp LC(K)>, <&kp LC(U)>;
@@ -89,70 +78,61 @@
 
     run_tests_all: run_tests_all {
       compatible = "zmk,behavior-macro";
-      label = "TEST_ALL";
       #binding-cells = <0>;
-      /* Ctrl+R, A  — удерживаем Ctrl сами */
-      bindings = <&macro_press &kp LCTRL
-                 &macro_tap &kp R
-                 &macro_wait_time 10
-                 &macro_tap &kp A
-                 &macro_release &kp LCTRL>;
+      /* Ctrl+R, A */
+      bindings = <
+        &macro_press &kp LCTRL
+        &macro_tap   &kp R
+        &macro_wait_time 10
+        &macro_tap   &kp A
+        &macro_release &kp LCTRL
+      >;
     };
 
     run_tests_ctx: run_tests_ctx {
       compatible = "zmk,behavior-macro";
-      label = "TEST_CTX";
       #binding-cells = <0>;
       /* Ctrl+R, T */
-      bindings = <&macro_press &kp LCTRL
-                 &macro_tap &kp R
-                 &macro_wait_time 10
-                 &macro_tap &kp T
-                 &macro_release &kp LCTRL>;
+      bindings = <
+        &macro_press &kp LCTRL
+        &macro_tap   &kp R
+        &macro_wait_time 10
+        &macro_tap   &kp T
+        &macro_release &kp LCTRL
+      >;
     };
 
+    /* Пары скобок с возвратом курсора внутрь */
     pair_paren: pair_paren {
       compatible = "zmk,behavior-macro";
-      label = "PAIR()";
       #binding-cells = <0>;
       bindings = <&kp LPAR>, <&kp RPAR>, <&kp LEFT>;
     };
     pair_brace: pair_brace {
       compatible = "zmk,behavior-macro";
-      label = "PAIR{}";
       #binding-cells = <0>;
       bindings = <&kp LBRC>, <&kp RBRC>, <&kp LEFT>;
     };
     pair_brkt: pair_brkt {
       compatible = "zmk,behavior-macro";
-      label = "PAIR[]";
       #binding-cells = <0>;
       bindings = <&kp LBKT>, <&kp RBKT>, <&kp LEFT>;
     };
     pair_quotes: pair_quotes {
       compatible = "zmk,behavior-macro";
-      label = "PAIR\"\"";
       #binding-cells = <0>;
-      bindings = <&kp DQT>, <&kp LEFT>;
+      /* Двойная кавычка: Shift+' затем стрелка влево */
+      bindings = <&kp LS(SQT)>, <&kp LEFT>;
     };
 
+    /* Сниппет Console.WriteLine(): "cw" + Tab (VS) */
     cw_snippet: cw_snippet {
       compatible = "zmk,behavior-macro";
-      label = "CW";
       #binding-cells = <0>;
-      /* "cw" + Tab -> Console.WriteLine(); (VS snippet) */
       bindings = <&kp C>, <&kp W>, <&kp TAB>;
     };
 
-    /* ----------------- ENCODERS ROTATION ----------------- */
-
-    enc_vol: enc_vol {
-      compatible = "zmk,behavior-sensor-rotate";
-      #sensor-binding-cells = <0>;
-      /* влево — тише, вправо — громче (поменяй порядок, если хочешь наоборот) */
-      bindings = <&kp C_VOL_DN>, <&kp C_VOL_UP>;
-    };
-
+    /* ---------- Энкодеры ---------- */
     enc_tabs: enc_tabs {
       compatible = "zmk,behavior-sensor-rotate";
       #sensor-binding-cells = <0>;
@@ -162,14 +142,19 @@
     enc_navhist: enc_navhist {
       compatible = "zmk,behavior-sensor-rotate";
       #sensor-binding-cells = <0>;
-      bindings = <&kp LA(LEFT)>, <&kp LA(RIGHT)>; /* Navigate Back/Forward (VS/OS) */
+      bindings = <&kp LA(LEFT)>, <&kp LA(RIGHT)>; /* Navigate Back/Forward */
     };
 
-    /* На VS Tools слое — энкодером бегать по ошибкам (Shift+F8 / F8) */
     enc_errors: enc_errors {
       compatible = "zmk,behavior-sensor-rotate";
       #sensor-binding-cells = <0>;
-      bindings = <&kp LS(F8)>, <&kp F8>;
+      bindings = <&kp LS(F8)>, <&kp F8>; /* Prev/Next Error */
+    };
+
+    enc_vol: enc_vol {
+      compatible = "zmk,behavior-sensor-rotate";
+      #sensor-binding-cells = <0>;
+      bindings = <&kp C_VOL_DN>, <&kp C_VOL_UP>;
     };
   };
 
@@ -187,7 +172,8 @@
       >;
 
       display-name = "Base";
-      /* Энкодеры: вкладки и навигация истории */
+
+      /* Вращение: вкладки (лев), навиг. назад/вперёд (прав) */
       sensor-bindings =
         <&enc_tabs>, <&enc_navhist>,
         <&enc_tabs>, <&enc_navhist>,
@@ -201,16 +187,16 @@
         &trans  &kp HOME  &kp PG_UP   &kp PG_DN  &kp END       &trans                     &kp PG_UP        &trans  &trans  &trans   &trans   &trans
         &trans  &kp LEFT  &kp UP      &kp DOWN   &kp RIGHT     &trans                     &kp PG_DN        &trans  &trans  &trans   &trans   &trans
         &trans  &kp LC(LEFT)  &trans  &trans     &kp LC(RIGHT)  &kp DEL   &trans  &trans  &kp PRINTSCREEN  &trans  &trans  &trans   &trans   &trans
-                   &trans        &trans    &trans         &trans   &trans    &trans  &mo 3            &trans  &trans  &trans
+               &trans        &trans    &trans         &trans   &trans    &trans  &mo 3            &trans  &trans  &trans
       >;
-    
+
       display-name = "Navigation";
+
       sensor-bindings =
         <&enc_tabs>, <&enc_navhist>,
         <&enc_tabs>, <&enc_navhist>,
         <&enc_tabs>, <&enc_navhist>;
     };
-
 
     /* -------------------- Symbols -------------------- */
     sym {
@@ -219,18 +205,18 @@
         &trans  &trans    &pair_paren  &kp EQUAL  &pair_brkt  &kp GRAVE                &trans     &kp LBKT  &kp UNDER  &kp RBKT  &trans    &trans
         &trans  &kp BSLH  &kp LPAR  &kp MINUS  &kp RPAR  &kp PLUS                     &kp PRCNT  &pair_brace  &kp SEMI   &kp RBRC  &kp EXCL  &trans
         &trans  &trans    &kp STAR  &kp COLON  &kp FSLH  &trans     &trans    &trans  &trans     &kp PIPE  &kp TILDE  &kp AMPS  &trans    &trans
-                     &trans    &trans     &trans    &mo 3      &trans    &trans  &trans     &trans    &trans     &trans
+                   &trans    &trans     &trans    &mo 3      &trans    &trans  &trans     &trans    &trans     &trans
       >;
-    
+
       display-name = "Symbols";
+
       sensor-bindings =
         <&enc_tabs>, <&enc_navhist>,
         <&enc_tabs>, <&enc_navhist>,
         <&enc_tabs>, <&enc_navhist>;
     };
 
-
-    /* -------------------- VS Tools (замена Adjust) -------------------- */
+    /* -------------------- VS Tools (вместо Adjust) -------------------- */
     vs_tools {
       bindings = <
         &bootloader  &trans  &trans  &trans  &trans  &trans                    &trans        &trans        &trans            &trans        &trans        &trans
@@ -241,7 +227,8 @@
       >;
 
       display-name = "VS Tools";
-      /* На этом слое левый энкодер — по ошибкам (Shift+F8/F8), правый — громкость */
+
+      /* На этом слое энкодеры: (лев) ошибки F8/Shift+F8, (прав) громкость */
       sensor-bindings =
         <&enc_errors>, <&enc_vol>,
         <&enc_errors>, <&enc_vol>,
@@ -249,6 +236,3 @@
     };
   };
 };
-
-/* Удобная метка для входа на слой VS Tools с навигации/символов */
-#define vs_tools &mo 3
