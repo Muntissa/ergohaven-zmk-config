@@ -145,6 +145,14 @@
     };
 
     /* ----------------- ENCODERS ROTATION ----------------- */
+
+    enc_vol: enc_vol {
+      compatible = "zmk,behavior-sensor-rotate";
+      #sensor-binding-cells = <0>;
+      /* влево — тише, вправо — громче (поменяй порядок, если хочешь наоборот) */
+      bindings = <&kp C_VOL_DN>, <&kp C_VOL_UP>;
+    };
+
     enc_tabs: enc_tabs {
       compatible = "zmk,behavior-sensor-rotate";
       #sensor-binding-cells = <0>;
