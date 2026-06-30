@@ -2,7 +2,14 @@ manifest:
   remotes:
     - name: ergohaven
       url-base: https://github.com/ergohaven
+    - name: fork
+      url-base: https://github.com/Muntissa
   projects:
+    # Override the Qube screen module with our fork (animations + OS-aware icons).
+    # Main-manifest definition takes precedence over the one imported below.
+    - name: ergohaven-zmk-qube
+      remote: fork
+      revision: dashboard
     - name: ergohaven-zmk
       remote: ergohaven
       revision: main
